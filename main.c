@@ -27,6 +27,7 @@
 
 
 char keysDown[512] = { GL_FALSE };
+int frame=0,time,timebase=0;
 
 typedef struct {
     float x;
@@ -157,6 +158,16 @@ char inside_map(float x, float y, float z){
 }
 
 void render(){
+
+    frame++;
+	time=glutGet(GLUT_ELAPSED_TIME);
+	if (time - timebase > 1000) {
+		sprintf(s,"FPS:%4.2f",
+			frame*1000.0/(time-timebase));
+		timebase = time;
+		frame = 0;
+	}
+
     glClearColor(0.54f, 0.76f, 0.87f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -240,6 +251,8 @@ void resize(int width, int height) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+#pragma region Keyboard
+
 void normalKeyDown(unsigned char key, int x, int y) {   
     keysDown[key] = GL_TRUE;
 }
@@ -256,6 +269,7 @@ void specialKeyUp(unsigned char key, int x, int y) {
     keysDown[key + 256] = GL_FALSE;
 }
 
+#pragma endregion Keyboard
 
 void processKeyboardInput(unsigned char key, unsigned char special){
     float lx = sin(camera_rotation);
