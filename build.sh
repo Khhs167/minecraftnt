@@ -1,0 +1,1 @@
+gcc *.c -o ./build/minecraftnt -lGL -lGLU -lglut -lm
