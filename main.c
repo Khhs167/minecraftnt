@@ -162,7 +162,7 @@ void render(){
     frame++;
 	time=glutGet(GLUT_ELAPSED_TIME);
 	if (time - timebase > 1000) {
-		sprintf(s,"FPS:%4.2f",
+		printf("FPS: %4.2f\n",
 			frame*1000.0/(time-timebase));
 		timebase = time;
 		frame = 0;
